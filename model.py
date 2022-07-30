@@ -198,6 +198,7 @@ class FINet(nn.Module):
         t_Hx, t_Hy = self.t_gfi(t_source_glob_feature, t_reference_glob_feature)
 
         rot_param = self.rot_reg_branch(r_Hx, r_Hy, t_Hx, t_Hy)
+        rot_param = rot_param / t.norm(rot_param, dim=2, keepdim=True)  # 四元数norm应当为1
         t_vec = self.trans_reg_branch(r_Hx, r_Hy, t_Hx, t_Hy)
 
         return rot_param, t_vec, r_source_glob_feature, r_reference_glob_feature, t_source_glob_feature, t_reference_glob_feature, r_source_dropout_glob_feature, r_reference_dropout_glob_feature, t_source_dropout_glob_feature, t_reference_dropout_glob_feature
