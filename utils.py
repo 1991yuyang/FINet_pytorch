@@ -44,9 +44,15 @@ def transform(q, t_vec, pcd):
 
 
 def showPCD(listOfPCD):
+    for i in range(len(listOfPCD)):
+        pcd_tem = listOfPCD[i]
+        if isinstance(pcd_tem, np.ndarray):
+            pcd_rep = o3d.geometry.PointCloud()
+            pcd_rep.points = o3d.utility.Vector3dVector(pcd_tem)
+            listOfPCD[i] = pcd_rep
     colors = rd.uniform(0, 1, (len(listOfPCD), 3))
     for i, _pcd in enumerate(listOfPCD):
-        pcd.paint_uniform_color(colors[i])
+        _pcd.paint_uniform_color(colors[i])
     o3d.visualization.draw_geometries(listOfPCD,  # 点云列表
                                       window_name="PCD_transform",
                                       point_show_normal=False,
