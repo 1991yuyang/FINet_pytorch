@@ -59,4 +59,9 @@ def make_loader(root_dir, is_training, point_count, batch_size, num_workers):
 if __name__ == "__main__":
     root_dir = r"F:\data\shapenet_data"
     s = MySet(root_dir, True, 2800)
-    s[1]
+    loader = make_loader(root_dir, True, 2300, 4, 4)
+    for s, r, q, t_vec in loader:
+        print(s.size())
+        print(r.size())
+        print(q.size())
+        print(t_vec.size())
